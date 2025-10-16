@@ -53,7 +53,7 @@ namespace CSharpCompletoOO._5._Intermediário_de_OO {
 
     }
     internal class ExercicioIntermediario {
-        public static void Main(string[] args) {
+        public static void MainX(string[] args) {
             // Exercício que explora detalhes intermediários importantes de OO:
             /*
                 Em um banco, para se cadastrar uma conta bancária, é necessário informar o número da conta, o nome do titular
