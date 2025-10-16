@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace CSharpCompletoOO._3._Básico_de_C_ {
     internal class ExerciciosEstruturaFor {
-        public static void Main(string[] args) {
+        public static void MainX(string[] args) {
             Console.WriteLine("Menu:\n[1] Exercício 1\n[2] Exercício 2\n[3] Exercício 3" +
                               "\n[4] Exercício 4\n[5] Exercício 5\n[6] Exercício 6\n[7] Exercício 7");
             Console.Write("Escolha uma opção: ");
