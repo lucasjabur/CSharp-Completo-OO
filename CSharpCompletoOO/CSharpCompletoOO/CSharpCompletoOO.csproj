@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="7. Tópicos Especiais em C#\" />
+    <Folder Include="9. Herança e Polimorfismo\" />
+  </ItemGroup>
+
 </Project>

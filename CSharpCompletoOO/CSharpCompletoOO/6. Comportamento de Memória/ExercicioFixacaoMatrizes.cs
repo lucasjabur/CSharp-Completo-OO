@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharpCompletoOO._6._Comportamento_de_Memória {
     internal class ExercicioFixacaoMatrizes {
-        public static void Main(string[] args) {
+        public static void MainX(string[] args) {
             // Exercício de fixação:
             // Fazer um programa para ler dois números inteiro M e N, e depois ler uma matriz
             // MxN contendo números inteiros podendo haver repetições. Em seguida, ler um número inteiro
