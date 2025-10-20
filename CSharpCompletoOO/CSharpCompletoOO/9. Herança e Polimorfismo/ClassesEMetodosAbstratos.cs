@@ -54,7 +54,7 @@ namespace CSharpCompletoOO._9._Herança_e_Polimorfismo {
     }
         
     internal class ClassesEMetodosAbstratos {
-        public static void Main(string[] args) {
+        public static void MainX(string[] args) {
             // Exercício:
             // Fazer um programa para ler os dados de N figuras e depois mostrar as áreas destas figuras
             // na mesma ordem em que foram digitadas.
