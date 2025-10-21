@@ -52,7 +52,7 @@ namespace CSharpCompletoOO._12._Interfaces {
             }
         }
 
-        public static void Main(string[] args) {
+        public static void MainY(string[] args) {
             // Exercício prático 2:
             // Faça um programa para ler um arquivo contendo funcionários (nome e salário) no formato .csv, 
             // armazenando-os em uma lista. Depois, ordenar a lista por nome e mostrar o resultado na tela.
