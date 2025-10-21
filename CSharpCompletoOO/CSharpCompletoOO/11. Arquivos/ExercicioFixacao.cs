@@ -8,7 +8,7 @@ using System.Xml;
 
 namespace CSharpCompletoOO._11._Arquivos {
     internal class ExercicioFixacao {
-        public static void Main(string[] args) {
+        public static void MainX(string[] args) {
             // Exercício de fixação:
             // Fazer um programa para ler o caminho de um arquivo .csv contendo os dados de itens
             // vendidos. Cada item possui um nome, preço unitário e quantidade, separados por vírgula.
