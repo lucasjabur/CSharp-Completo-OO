@@ -9,6 +9,8 @@
 
   <ItemGroup>
     <Folder Include="7. Tópicos Especiais em C#\" />
+    <Folder Include="Pasta de Assistência\Pasta Extra 2\" />
+    <Folder Include="Pasta de Assistência\Pasta Extra 1\" />
   </ItemGroup>
 
 </Project>
