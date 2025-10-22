@@ -6,8 +6,8 @@ namespace JogoDeXadrez
     {
         static void Main(string[] args)
         {
-            Posicao posicao = new Posicao(3, 4);
-            Console.WriteLine(posicao);
+            Board board = new Board(8, 8);
+            Console.WriteLine(board);
         }
     }
 }
