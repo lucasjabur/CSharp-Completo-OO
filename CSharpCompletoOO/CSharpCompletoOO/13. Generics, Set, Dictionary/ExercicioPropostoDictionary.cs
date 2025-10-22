@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CSharpCompletoOO._13._Generics__Set__Dictionary {
     internal class ExercicioPropostoDictionary {
-        public static void Main(string[] args) {
+        public static void MainX(string[] args) {
             // Exercício proposto:
             // Na contagem de votos de uma eleição, são gerados vários registros de votação contendo o nome do candidato
             // e a quantidade de votos (formato .csv) que ele obteve em uma urna de votação. Você deve fazer um programa
