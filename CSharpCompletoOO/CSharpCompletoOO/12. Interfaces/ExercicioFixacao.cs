@@ -71,7 +71,7 @@ namespace CSharpCompletoOO._12._Interfaces {
     }
 
     internal class ExercicioFixacao {
-        public static void Main(string[] args) {
+        public static void MainX(string[] args) {
             // Exercício de fixação:
             // Uma empresa deseja automatizar o processamento de seus contratos. O processamento de um contrato
             // consiste em gerar as parcelas a serem pagas para aquele contrato, com base no número de meses desejado.
