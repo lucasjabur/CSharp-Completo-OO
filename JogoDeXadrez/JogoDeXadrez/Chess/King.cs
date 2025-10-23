@@ -7,7 +7,7 @@ namespace Chess {
         public King(Color color, GameBoard board) : base(color, board) { }
 
         public override string ToString() {
-            return "R";
+            return "K";
         }
     }
 }

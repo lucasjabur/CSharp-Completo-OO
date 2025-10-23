@@ -6,16 +6,20 @@ namespace JogoDeXadrez
 {
     internal class Program
     {
-        static void Main(string[] args)
-        {
-            GameBoard board = new GameBoard(8, 8);
+        static void Main(string[] args) {
 
-            board.PlacePiece(new Tower(Color.Black, board), new Position(0, 0));
-            board.PlacePiece(new Tower(Color.Black, board), new Position(1, 3));
-            board.PlacePiece(new King(Color.Black, board), new Position(2, 4));
-            Screen.PrintBoard(board);
+            try {
+                GameBoard board = new GameBoard(8, 8);
 
-            Console.ReadLine();
+                board.PlacePiece(new Tower(Color.Black, board), new Position(0, 0));
+                board.PlacePiece(new Tower(Color.Black, board), new Position(1, 9));
+                board.PlacePiece(new King(Color.Black, board), new Position(0, 2));
+                Screen.PrintBoard(board);
+
+                Console.ReadLine();
+            } catch (Exception ex) {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }
