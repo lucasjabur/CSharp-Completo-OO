@@ -10,5 +10,9 @@
             Pieces = new Piece[numberOfRows, numberOfColumns];
         }
 
+        public Piece PieceOnBoard(int row, int column) {
+            return Pieces[row, column];
+        }
+
     }
 }
