@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Board {
-    enum Color {
+    enum PieceColor {
         White,
         Black,
         Yellow,

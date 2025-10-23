@@ -1,27 +1,34 @@
-﻿using System;
-using Board;
+﻿using Board;
+using System;
+using System.Drawing;
 
 namespace Chess {
     class ChessMatch {
         public GameBoard MatchBoard { get; private set; }
         public int Round { get; private set; }
-        public Color CurrentPlayer { get; private set; }
+        public PieceColor CurrentPlayer { get; private set; }
         public bool Finished { get; private set; }
+        private HashSet<Piece> Pieces;
+        private HashSet<Piece> CapturedPieces;
 
         public ChessMatch() {
             MatchBoard = new GameBoard(8, 8);
             Round = 1;
-            CurrentPlayer = Color.White;
+            CurrentPlayer = PieceColor.White;
             Finished = false;
+            Pieces = new HashSet<Piece>();
+            CapturedPieces = new HashSet<Piece>();
             PlacePieces();
         }
 
         public void MoveExecution(Position origin, Position destination) {
             Piece piece = MatchBoard.RemovePiece(origin);
-            piece.NumberOfMovementeIncrementer();
-            MatchBoard.RemovePiece(destination);
+            piece.NumberOfMovementsIncrementer();
             Piece capturedPiece = MatchBoard.RemovePiece(destination);
             MatchBoard.PlacePiece(piece, destination);
+            if (capturedPiece != null) {
+                CapturedPieces.Add(capturedPiece);
+            }
         }
 
         public void DoPlay(Position origin, Position destination) {
@@ -49,27 +56,53 @@ namespace Chess {
         }
 
         private void ChangePlayer() {
-            if (CurrentPlayer == Color.White) {
-                CurrentPlayer = Color.Black;
+            if (CurrentPlayer == PieceColor.White) {
+                CurrentPlayer = PieceColor.Black;
             } else {
-                CurrentPlayer = Color.White;
+                CurrentPlayer = PieceColor.White;
             }
         }
 
-        private void PlacePieces() {
-            MatchBoard.PlacePiece(new Tower(Color.White, MatchBoard), new ChessBoardPosition('C', 1).ConvertPosition());
-            MatchBoard.PlacePiece(new Tower(Color.White, MatchBoard), new ChessBoardPosition('C', 2).ConvertPosition());
-            MatchBoard.PlacePiece(new Tower(Color.White, MatchBoard), new ChessBoardPosition('D', 2).ConvertPosition());
-            MatchBoard.PlacePiece(new Tower(Color.White, MatchBoard), new ChessBoardPosition('E', 1).ConvertPosition());
-            MatchBoard.PlacePiece(new Tower(Color.White, MatchBoard), new ChessBoardPosition('E', 2).ConvertPosition());
-            MatchBoard.PlacePiece(new King(Color.White, MatchBoard), new ChessBoardPosition('D', 1).ConvertPosition());
+        public HashSet<Piece> CapturedPiecesByColor(PieceColor color) {
+            HashSet<Piece> auxiliarSet = new HashSet<Piece>();
+            foreach(Piece piece in CapturedPieces) {
+                if (piece.Color == color) {
+                    auxiliarSet.Add(piece);
+                }
+            }
+            return auxiliarSet;
+        }
 
-            MatchBoard.PlacePiece(new Tower(Color.Black, MatchBoard), new ChessBoardPosition('C', 7).ConvertPosition());
-            MatchBoard.PlacePiece(new Tower(Color.Black, MatchBoard), new ChessBoardPosition('C', 8).ConvertPosition());
-            MatchBoard.PlacePiece(new Tower(Color.Black, MatchBoard), new ChessBoardPosition('D', 7).ConvertPosition());
-            MatchBoard.PlacePiece(new Tower(Color.Black, MatchBoard), new ChessBoardPosition('E', 7).ConvertPosition());
-            MatchBoard.PlacePiece(new Tower(Color.Black, MatchBoard), new ChessBoardPosition('E', 8).ConvertPosition());
-            MatchBoard.PlacePiece(new King(Color.Black, MatchBoard), new ChessBoardPosition('D', 8).ConvertPosition());
+        public HashSet<Piece> InGamePiecesByColor(PieceColor color) {
+            HashSet<Piece> auxiliarSet = new HashSet<Piece>();
+            foreach (Piece piece in Pieces) {
+                if (piece.Color == color) {
+                    auxiliarSet.Add(piece);
+                }
+            }
+            auxiliarSet.ExceptWith(CapturedPiecesByColor(color));
+            return auxiliarSet;
+        }
+
+        public void PlaceNewPiece(char column, int row, Piece piece) {
+            MatchBoard.PlacePiece(piece, new ChessBoardPosition(column, row).ConvertPosition());
+            Pieces.Add(piece);
+        }
+
+        private void PlacePieces() {
+            PlaceNewPiece('C', 1, new Tower(PieceColor.White, MatchBoard));
+            PlaceNewPiece('C', 2, new Tower(PieceColor.White, MatchBoard));
+            PlaceNewPiece('D', 2, new Tower(PieceColor.White, MatchBoard));
+            PlaceNewPiece('E', 1, new Tower(PieceColor.White, MatchBoard));
+            PlaceNewPiece('E', 2, new Tower(PieceColor.White, MatchBoard));
+            PlaceNewPiece('D', 1, new King(PieceColor.White, MatchBoard));
+
+            PlaceNewPiece('C', 7, new Tower(PieceColor.Black, MatchBoard));
+            PlaceNewPiece('C', 8, new Tower(PieceColor.Black, MatchBoard));
+            PlaceNewPiece('D', 7, new Tower(PieceColor.Black, MatchBoard));
+            PlaceNewPiece('E', 7, new Tower(PieceColor.Black, MatchBoard));
+            PlaceNewPiece('E', 8, new Tower(PieceColor.Black, MatchBoard));
+            PlaceNewPiece('D', 8, new King(PieceColor.Black, MatchBoard));
         }
     }
 }

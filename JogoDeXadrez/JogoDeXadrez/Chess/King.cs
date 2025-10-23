@@ -4,7 +4,7 @@ using Board;
 namespace Chess {
     class King : Piece {
 
-        public King(Color color, GameBoard board) : base(color, board) { }
+        public King(PieceColor color, GameBoard board) : base(color, board) { }
 
 
         private bool CanBeMoved(Position pos) {

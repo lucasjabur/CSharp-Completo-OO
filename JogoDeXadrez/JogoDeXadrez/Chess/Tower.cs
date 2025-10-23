@@ -4,7 +4,7 @@ using Board;
 namespace Chess {
     class Tower : Piece {
 
-        public Tower(Color color, GameBoard board) : base(color, board) { }
+        public Tower(PieceColor color, GameBoard board) : base(color, board) { }
 
         private bool CanBeMoved(Position pos) {
             Piece piece = Board.PieceOnBoard(pos);

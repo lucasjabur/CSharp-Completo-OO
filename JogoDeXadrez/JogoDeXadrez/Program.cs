@@ -15,10 +15,7 @@ namespace JogoDeXadrez
 
                     try {
                         Console.Clear();
-                        Screen.PrintBoard(match.MatchBoard);
-                        Console.WriteLine();
-                        Console.WriteLine($"Round: {match.Round}");
-                        Console.WriteLine($"Waiting for action: {match.CurrentPlayer}");
+                        Screen.PrintMatch(match);
 
                         Console.WriteLine();
 
