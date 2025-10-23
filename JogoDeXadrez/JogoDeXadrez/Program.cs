@@ -12,27 +12,39 @@ namespace JogoDeXadrez
                 ChessMatch match = new ChessMatch();
 
                 while (!match.Finished) {
-                    Console.Clear();
-                    Screen.PrintBoard(match.MatchBoard);
 
-                    Console.WriteLine();
+                    try {
+                        Console.Clear();
+                        Screen.PrintBoard(match.MatchBoard);
+                        Console.WriteLine();
+                        Console.WriteLine($"Round: {match.Round}");
+                        Console.WriteLine($"Waiting for action: {match.CurrentPlayer}");
 
-                    Console.Write("Origin: ");
-                    Position origin = Screen.ReceiveBoardPosition().ConvertPosition();
+                        Console.WriteLine();
 
-                    bool[,] possiblePositions = match.MatchBoard.PieceOnBoard(origin).PossibleMovements();
+                        Console.Write("Origin: ");
+                        Position origin = Screen.ReceiveBoardPosition().ConvertPosition();
+                        match.ValidateOriginPosition(origin);
 
-                    Console.Clear();
-                    Screen.PrintBoard(match.MatchBoard, possiblePositions);
+                        bool[,] possiblePositions = match.MatchBoard.PieceOnBoard(origin).PossibleMovements();
 
-                    Console.WriteLine();
-                    Console.Write("Destination: ");
-                    Position destination = Screen.ReceiveBoardPosition().ConvertPosition();
+                        Console.Clear();
+                        Screen.PrintBoard(match.MatchBoard, possiblePositions);
 
-                    match.MoveExecution(origin, destination);
+                        Console.WriteLine();
+                        Console.Write("Destination: ");
+                        Position destination = Screen.ReceiveBoardPosition().ConvertPosition();
+                        match.ValidateDestinationPosition(origin, destination);
+
+                        match.DoPlay(origin, destination);
+                    } catch (Exception ex) {
+                        Console.WriteLine(ex.Message);
+                        Console.ReadLine();
+                    }
                 }
             } catch (Exception ex) {
                 Console.WriteLine(ex.Message);
+                Console.ReadLine();
             }
 
             Console.ReadLine();

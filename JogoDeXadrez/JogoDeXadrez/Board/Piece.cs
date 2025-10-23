@@ -18,6 +18,22 @@ namespace Board {
             NumberOfMovements++;
         }
 
+        public bool IsTherePossibleMovements() {
+            bool[,] possibleMovements = PossibleMovements();
+            for (int i = 0; i < Board.NumberOfRows; i++) {
+                for (int j = 0; j < Board.NumberOfColumns; j++) {
+                    if (possibleMovements[i, j]) {
+                        return true;
+                    }
+                }
+            }
+            return false;
+        }
+
+        public bool CanBeMovedTo(Position pos) {
+            return PossibleMovements()[pos.Row, pos.Column];
+        }
+
         public abstract bool[,] PossibleMovements();
     }
 }
