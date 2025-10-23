@@ -1,5 +1,6 @@
 ﻿using System;
 using Board;
+using Chess;
 
 namespace Board {
     class Screen {
@@ -23,6 +24,13 @@ namespace Board {
             }
             Console.WriteLine("   _______________________________");
             Console.WriteLine("\n    A   B   C   D   E   F   G   H");
+        }
+
+        public static ChessBoardPosition ReceiveBoardPosition() {
+            string completePosition = Console.ReadLine();
+            char column = completePosition[0];
+            int row = int.Parse(completePosition[1] + " ");
+            return new ChessBoardPosition(column, row);
         }
 
         public static void PrintPiece(Piece piece) {

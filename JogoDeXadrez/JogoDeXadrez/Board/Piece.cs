@@ -13,5 +13,9 @@ namespace Board {
             Board = board;
             NumberOfMovements = 0; // a peça ao ser criada ainda não se moveu, por isso é iniciado com 0
         }
+
+        public void NumberOfMovementeIncrementer() {
+            NumberOfMovements++;
+        }
     }
 }

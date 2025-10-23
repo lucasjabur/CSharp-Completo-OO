@@ -37,6 +37,17 @@ namespace Board {
         // é o próprio tabuleiro, o que significa que quando uma peça é criada, ela não aparece posicionada
         // logo de início. Portanto, o atributo de posição da peça deve ser iniciada com 'null'.
 
+        public Piece RemovePiece(Position position) {
+            if (PieceOnBoard(position) == null) {
+                return null;
+            }
+
+            Piece auxiliarPiece = PieceOnBoard(position);
+            auxiliarPiece.Position = null;
+            Pieces[position.Row, position.Column] = null;
+            
+            return auxiliarPiece;
+        }
         public bool IsPositionValid(Position position) {
             if (position.Row < 0 || position.Row >= NumberOfRows || position.Column < 0 || position.Column >= NumberOfColumns) {
                 return false;
