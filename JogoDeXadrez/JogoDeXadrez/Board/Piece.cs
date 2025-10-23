@@ -1,7 +1,7 @@
 ﻿using System;
 
 namespace Board {
-    class Piece {
+    abstract class Piece {
         public Position Position {  get; set; }
         public Color Color { get; protected set; } // acessada por todas as classes, porém alterada apenas por ela mesmo e pelas suas subclasses
         public int NumberOfMovements { get; protected set; }
@@ -17,5 +17,7 @@ namespace Board {
         public void NumberOfMovementeIncrementer() {
             NumberOfMovements++;
         }
+
+        public abstract bool[,] PossibleMovements();
     }
 }

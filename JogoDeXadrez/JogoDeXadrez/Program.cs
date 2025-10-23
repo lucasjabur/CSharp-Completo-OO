@@ -20,6 +20,12 @@ namespace JogoDeXadrez
                     Console.Write("Origin: ");
                     Position origin = Screen.ReceiveBoardPosition().ConvertPosition();
 
+                    bool[,] possiblePositions = match.MatchBoard.PieceOnBoard(origin).PossibleMovements();
+
+                    Console.Clear();
+                    Screen.PrintBoard(match.MatchBoard, possiblePositions);
+
+                    Console.WriteLine();
                     Console.Write("Destination: ");
                     Position destination = Screen.ReceiveBoardPosition().ConvertPosition();
 
