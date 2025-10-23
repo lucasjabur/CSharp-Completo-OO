@@ -1,4 +1,6 @@
-﻿namespace Tabuleiro {
+﻿using System;
+
+namespace Board {
     class Position {
 
         public int Row {  get; set; }

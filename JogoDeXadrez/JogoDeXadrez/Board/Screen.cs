@@ -1,8 +1,9 @@
-﻿using Tabuleiro;
+﻿using System;
+using Board;
 
-namespace Tabuleiro {
+namespace Board {
     class Screen {
-        public static void PrintBoard(Board board) {
+        public static void PrintBoard(GameBoard board) {
             for (int i = 0; i < board.NumberOfRows; i++) {
                 for (int j = 0; j < board.NumberOfColumns; j++) {
 
