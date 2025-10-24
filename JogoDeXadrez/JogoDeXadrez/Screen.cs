@@ -23,12 +23,13 @@ namespace JogoDeXadrez {
         }
         public static void PrintBoard(GameBoard board) {
             for (int i = 0; i < board.NumberOfRows; i++) {
-                Console.Write(8 - i + " ");
+                Console.Write(8 - i + "| ");
                 for (int j = 0; j < board.NumberOfColumns; j++) {                   
                     PrintPiece(board.PieceOnBoard(i, j));
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine(" __________________");
             Console.WriteLine("  A B C D E F G H");
         }
 
@@ -62,7 +63,7 @@ namespace JogoDeXadrez {
             ConsoleColor newBackground = ConsoleColor.DarkGray;
 
             for (int i = 0; i < board.NumberOfRows; i++) {
-                Console.Write(8 - i + " ");
+                Console.Write(8 - i + "| ");
                 for (int j = 0; j < board.NumberOfColumns; j++) {
                     if (possiblePositions[i, j]) {
                         Console.BackgroundColor = newBackground;
@@ -74,6 +75,7 @@ namespace JogoDeXadrez {
                 }
                 Console.WriteLine();
             }
+            Console.WriteLine(" __________________");
             Console.WriteLine("  A B C D E F G H");
             Console.BackgroundColor = defaultBackground;
         }
