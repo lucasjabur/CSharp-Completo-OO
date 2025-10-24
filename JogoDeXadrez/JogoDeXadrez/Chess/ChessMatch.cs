@@ -122,6 +122,19 @@ namespace Chess {
                 throw new BoardException("You cannot put yourself on a check situation!");
             }
 
+            Piece piece = MatchBoard.PieceOnBoard(destination);
+
+            // Jogada Promoção:
+            if (piece is Pawn) {
+                if ((piece.Color == PieceColor.White && destination.Row == 0) || (piece.Color == PieceColor.Black && destination.Row == 7)) {
+                    piece = MatchBoard.RemovePiece(destination);
+                    Pieces.Remove(piece);
+                    Piece queen = new Queen(piece.Color, MatchBoard);
+                    MatchBoard.PlacePiece(queen, destination);
+                    Pieces.Add(queen);
+                } 
+            }
+
             if (IsItCheck(Oponent(CurrentPlayer))) {
                 Check = true;
             } else {
@@ -134,8 +147,6 @@ namespace Chess {
                 Round++;
                 ChangePlayer();
             }
-
-            Piece piece = MatchBoard.PieceOnBoard(destination);
             
             // En Passant:
             if (piece is Pawn && (destination.Row == origin.Row - 2 || destination.Row == origin.Row + 2)) {
