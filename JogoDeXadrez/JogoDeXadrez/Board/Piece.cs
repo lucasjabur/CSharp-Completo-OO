@@ -18,6 +18,10 @@ namespace Board {
             NumberOfMovements++;
         }
 
+        public void NumberOfMovementsDecrementer() {
+            NumberOfMovements--;
+        }
+
         public bool IsTherePossibleMovements() {
             bool[,] possibleMovements = PossibleMovements();
             for (int i = 0; i < Board.NumberOfRows; i++) {

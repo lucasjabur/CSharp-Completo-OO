@@ -12,6 +12,9 @@ namespace JogoDeXadrez {
             Console.WriteLine();
             Console.WriteLine($"\nRound: {match.Round}");
             Console.WriteLine($"Waiting for action: {match.CurrentPlayer}");
+            if (match.Check) {
+                Console.WriteLine("\n -- CHECK! --");
+            }
         }
         public static void PrintBoard(GameBoard board) {
             for (int i = 0; i < board.NumberOfRows; i++) {
