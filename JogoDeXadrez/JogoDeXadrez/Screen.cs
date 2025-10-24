@@ -6,14 +6,19 @@ namespace JogoDeXadrez {
     class Screen {
 
         public static void PrintMatch(ChessMatch match) {
-            Screen.PrintBoard(match.MatchBoard);
+            PrintBoard(match.MatchBoard);
             Console.WriteLine();
             PrintCapturedPieces(match);
             Console.WriteLine();
             Console.WriteLine($"\nRound: {match.Round}");
-            Console.WriteLine($"Waiting for action: {match.CurrentPlayer}");
-            if (match.Check) {
-                Console.WriteLine("\n -- CHECK! --");
+            if (!match.Finished) {
+                Console.WriteLine($"Waiting for action: {match.CurrentPlayer}");
+                if (match.Check) {
+                    Console.WriteLine("\n -- CHECK! --");
+                }
+            } else {
+                Console.WriteLine("\n -- CHECKMATE! --");
+                Console.WriteLine($"WINNER: {match.CurrentPlayer}");
             }
         }
         public static void PrintBoard(GameBoard board) {
