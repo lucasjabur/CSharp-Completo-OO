@@ -12,6 +12,7 @@ namespace Chess {
         private HashSet<Piece> Pieces;
         private HashSet<Piece> CapturedPieces;
         public bool Check {  get; private set; }
+        public Piece VulnerableToEnPassant { get; private set; }
 
         public ChessMatch() {
             MatchBoard = new GameBoard(8, 8);
@@ -21,6 +22,7 @@ namespace Chess {
             Pieces = new HashSet<Piece>();
             CapturedPieces = new HashSet<Piece>();
             Check = false;
+            VulnerableToEnPassant = null;
             PlacePieces();
         }
 
@@ -49,6 +51,21 @@ namespace Chess {
                 Piece rook = MatchBoard.RemovePiece(rookOrigin);
                 rook.NumberOfMovementsIncrementer();
                 MatchBoard.PlacePiece(rook, rookDestination);
+            }
+
+            // En Passant:
+            if (piece is Pawn) {
+                if (origin.Column != destination.Column && capturedPiece == null) {
+                    Position pawnPos;
+                    if (piece.Color == PieceColor.White) {
+                        pawnPos = new Position(destination.Row + 1, destination.Column);
+
+                    } else {
+                        pawnPos = new Position(destination.Row - 1, destination.Column);
+                    }
+                    capturedPiece = MatchBoard.RemovePiece(pawnPos);
+                    CapturedPieces.Add(capturedPiece);
+                }
             }
 
             return capturedPiece;
@@ -80,6 +97,21 @@ namespace Chess {
                 rook.NumberOfMovementsIncrementer();
                 MatchBoard.PlacePiece(rook, rookOrigin);
             }
+
+            // En Passant:
+            if (piece is Pawn) {
+                if (origin.Column != destination.Column && capturedPiece == VulnerableToEnPassant) {
+                    Piece pawn = MatchBoard.RemovePiece(destination);
+                    Position pawnPos;
+                    if (piece.Color == PieceColor.White) {
+                        pawnPos = new Position(3, destination.Column);
+                    
+                    } else {
+                        pawnPos = new Position(4, destination.Column);
+                    }
+                    MatchBoard.PlacePiece(pawn, pawnPos);
+                }
+            }
         }
 
         public void DoPlay(Position origin, Position destination) {
@@ -97,9 +129,20 @@ namespace Chess {
             }
             if (IsItCheckmate(Oponent(CurrentPlayer))) {
                 Finished = true;
+                
             } else {
                 Round++;
                 ChangePlayer();
+            }
+
+            Piece piece = MatchBoard.PieceOnBoard(destination);
+            
+            // En Passant:
+            if (piece is Pawn && (destination.Row == origin.Row - 2 || destination.Row == origin.Row + 2)) {
+                VulnerableToEnPassant = piece;
+
+            } else {
+                VulnerableToEnPassant = null;
             }
         }
 
@@ -222,14 +265,14 @@ namespace Chess {
             PlaceNewPiece('F', 1, new Bishop(PieceColor.White, MatchBoard));
             PlaceNewPiece('G', 1, new Knight(PieceColor.White, MatchBoard));
             PlaceNewPiece('H', 1, new Rook(PieceColor.White, MatchBoard));
-            PlaceNewPiece('A', 2, new Pawn(PieceColor.White, MatchBoard));
-            PlaceNewPiece('B', 2, new Pawn(PieceColor.White, MatchBoard));
-            PlaceNewPiece('C', 2, new Pawn(PieceColor.White, MatchBoard));
-            PlaceNewPiece('D', 2, new Pawn(PieceColor.White, MatchBoard));
-            PlaceNewPiece('E', 2, new Pawn(PieceColor.White, MatchBoard));
-            PlaceNewPiece('F', 2, new Pawn(PieceColor.White, MatchBoard));
-            PlaceNewPiece('G', 2, new Pawn(PieceColor.White, MatchBoard));
-            PlaceNewPiece('H', 2, new Pawn(PieceColor.White, MatchBoard));
+            PlaceNewPiece('A', 2, new Pawn(PieceColor.White, MatchBoard, this));
+            PlaceNewPiece('B', 2, new Pawn(PieceColor.White, MatchBoard, this));
+            PlaceNewPiece('C', 2, new Pawn(PieceColor.White, MatchBoard, this));
+            PlaceNewPiece('D', 2, new Pawn(PieceColor.White, MatchBoard, this));
+            PlaceNewPiece('E', 2, new Pawn(PieceColor.White, MatchBoard, this));
+            PlaceNewPiece('F', 2, new Pawn(PieceColor.White, MatchBoard, this));
+            PlaceNewPiece('G', 2, new Pawn(PieceColor.White, MatchBoard, this));
+            PlaceNewPiece('H', 2, new Pawn(PieceColor.White, MatchBoard, this));
 
             PlaceNewPiece('A', 8, new Rook(PieceColor.Black, MatchBoard));
             PlaceNewPiece('B', 8, new Knight(PieceColor.Black, MatchBoard));
@@ -239,14 +282,14 @@ namespace Chess {
             PlaceNewPiece('F', 8, new Bishop(PieceColor.Black, MatchBoard));
             PlaceNewPiece('G', 8, new Knight(PieceColor.Black, MatchBoard));
             PlaceNewPiece('H', 8, new Rook(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('A', 7, new Pawn(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('B', 7, new Pawn(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('C', 7, new Pawn(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('D', 7, new Pawn(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('E', 7, new Pawn(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('F', 7, new Pawn(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('G', 7, new Pawn(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('H', 7, new Pawn(PieceColor.Black, MatchBoard));
+            PlaceNewPiece('A', 7, new Pawn(PieceColor.Black, MatchBoard, this));
+            PlaceNewPiece('B', 7, new Pawn(PieceColor.Black, MatchBoard, this));
+            PlaceNewPiece('C', 7, new Pawn(PieceColor.Black, MatchBoard, this));
+            PlaceNewPiece('D', 7, new Pawn(PieceColor.Black, MatchBoard, this));
+            PlaceNewPiece('E', 7, new Pawn(PieceColor.Black, MatchBoard, this));
+            PlaceNewPiece('F', 7, new Pawn(PieceColor.Black, MatchBoard, this));
+            PlaceNewPiece('G', 7, new Pawn(PieceColor.Black, MatchBoard, this));
+            PlaceNewPiece('H', 7, new Pawn(PieceColor.Black, MatchBoard, this));
 
         }
     }
