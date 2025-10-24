@@ -79,7 +79,7 @@ namespace Chess {
         }
 
         public void ValidateDestinationPosition(Position origin, Position destination) {
-            if (!MatchBoard.PieceOnBoard(origin).CanBeMovedTo(destination)) {
+            if (!MatchBoard.PieceOnBoard(origin).PossibleMovement(destination)) {
                 throw new BoardException($"Invalid destination '[{origin.Row}, {origin.Column}]' to '[{destination.Row}, {destination.Column}]'!");
             }
         }
