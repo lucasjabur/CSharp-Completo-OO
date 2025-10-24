@@ -58,9 +58,12 @@ namespace Chess {
             } else {
                 Check = false;
             }
-
+            if (IsItCheckmate(Oponent(CurrentPlayer))) {
+                Finished = true;
+            } else {
                 Round++;
-            ChangePlayer();
+                ChangePlayer();
+            }
         }
 
         public void ValidateOriginPosition(Position pos) {
@@ -143,25 +146,56 @@ namespace Chess {
             return false;
         }
 
+        public bool IsItCheckmate(PieceColor color) {
+            if (!IsItCheck(color)) {
+                return false;
+            }
+            foreach (Piece piece in InGamePiecesByColor(color)) {
+                bool[,] auxiliarPossibleMovements = piece.PossibleMovements();
+                for (int i = 0; i < MatchBoard.NumberOfRows; i++) {
+                    for (int j = 0; j < MatchBoard.NumberOfColumns; j++) {
+                        if (auxiliarPossibleMovements[i, j]) {
+                            Position origin = piece.Position;
+                            Position destination = new Position(i, j);
+                            Piece capturedPiece = MoveExecution(origin, destination);
+                            bool checkTest = IsItCheck(color);
+                            UndoPlay(origin, destination, capturedPiece);
+                            if (!checkTest) {
+                                return false;
+                            }
+                        }
+                    }
+                }
+            }
+            return true;
+        }
+
         public void PlaceNewPiece(char column, int row, Piece piece) {
             MatchBoard.PlacePiece(piece, new ChessBoardPosition(column, row).ConvertPosition());
             Pieces.Add(piece);
         }
 
         private void PlacePieces() {
-            PlaceNewPiece('C', 1, new Tower(PieceColor.White, MatchBoard));
-            PlaceNewPiece('C', 2, new Tower(PieceColor.White, MatchBoard));
-            PlaceNewPiece('D', 2, new Tower(PieceColor.White, MatchBoard));
-            PlaceNewPiece('E', 1, new Tower(PieceColor.White, MatchBoard));
-            PlaceNewPiece('E', 2, new Tower(PieceColor.White, MatchBoard));
-            PlaceNewPiece('D', 1, new King(PieceColor.White, MatchBoard));
+            //PlaceNewPiece('C', 1, new Tower(PieceColor.White, MatchBoard));
+            //PlaceNewPiece('C', 2, new Tower(PieceColor.White, MatchBoard));
+            //PlaceNewPiece('D', 2, new Tower(PieceColor.White, MatchBoard));
+            //PlaceNewPiece('E', 1, new Tower(PieceColor.White, MatchBoard));
+            //PlaceNewPiece('E', 2, new Tower(PieceColor.White, MatchBoard));
+            //PlaceNewPiece('D', 1, new King(PieceColor.White, MatchBoard));
 
-            PlaceNewPiece('C', 7, new Tower(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('C', 8, new Tower(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('D', 7, new Tower(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('E', 7, new Tower(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('E', 8, new Tower(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('D', 8, new King(PieceColor.Black, MatchBoard));
+            //PlaceNewPiece('C', 7, new Tower(PieceColor.Black, MatchBoard));
+            //PlaceNewPiece('C', 8, new Tower(PieceColor.Black, MatchBoard));
+            //PlaceNewPiece('D', 7, new Tower(PieceColor.Black, MatchBoard));
+            //PlaceNewPiece('E', 7, new Tower(PieceColor.Black, MatchBoard));
+            //PlaceNewPiece('E', 8, new Tower(PieceColor.Black, MatchBoard));
+            //PlaceNewPiece('D', 8, new King(PieceColor.Black, MatchBoard));
+
+            PlaceNewPiece('C', 1, new Tower(PieceColor.White, MatchBoard));
+            PlaceNewPiece('D', 1, new King(PieceColor.White, MatchBoard));
+            PlaceNewPiece('h', 7, new Tower(PieceColor.White, MatchBoard));
+
+            PlaceNewPiece('B', 8, new Tower(PieceColor.Black, MatchBoard));
+            PlaceNewPiece('A', 8, new King(PieceColor.Black, MatchBoard));
         }
     }
 }
