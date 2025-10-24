@@ -2,8 +2,8 @@
 using System;
 
 namespace Chess {
-    class Horse : Piece {
-        public Horse(PieceColor color, GameBoard board) : base(color, board) { }
+    class Knight : Piece {
+        public Knight(PieceColor color, GameBoard board) : base(color, board) { }
 
         private bool CanBeMoved(Position pos) {
             Piece piece = Board.PieceOnBoard(pos);

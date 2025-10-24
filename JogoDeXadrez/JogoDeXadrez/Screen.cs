@@ -30,7 +30,7 @@ namespace JogoDeXadrez {
                 Console.WriteLine();
             }
             Console.WriteLine(" __________________");
-            Console.WriteLine("  A B C D E F G H");
+            Console.WriteLine("   A B C D E F G H");
         }
 
         public static void PrintCapturedPieces(ChessMatch match) {
@@ -76,7 +76,7 @@ namespace JogoDeXadrez {
                 Console.WriteLine();
             }
             Console.WriteLine(" __________________");
-            Console.WriteLine("  A B C D E F G H");
+            Console.WriteLine("   A B C D E F G H");
             Console.BackgroundColor = defaultBackground;
         }
 

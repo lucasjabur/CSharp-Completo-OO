@@ -2,9 +2,9 @@
 using Board;
 
 namespace Chess {
-    class Tower : Piece {
+    class Rook : Piece {
 
-        public Tower(PieceColor color, GameBoard board) : base(color, board) { }
+        public Rook(PieceColor color, GameBoard board) : base(color, board) { }
 
         private bool CanBeMoved(Position pos) {
             Piece piece = Board.PieceOnBoard(pos);
@@ -56,7 +56,7 @@ namespace Chess {
         }
 
         public override string ToString() {
-            return "T";
+            return "R";
         }
     }
 }

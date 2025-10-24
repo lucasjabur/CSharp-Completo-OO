@@ -32,6 +32,25 @@ namespace Chess {
             if (capturedPiece != null) {
                 CapturedPieces.Add(capturedPiece);
             }
+
+            // Roque pequeno (Kingside Castling):
+            if (piece is King && destination.Column == origin.Column + 2 ) {
+                Position rookOrigin = new Position(origin.Row, origin.Column + 3);
+                Position rookDestination = new Position(origin.Row, origin.Column + 1);
+                Piece rook = MatchBoard.RemovePiece(rookOrigin);
+                rook.NumberOfMovementsIncrementer();
+                MatchBoard.PlacePiece(rook, rookDestination);
+            }
+
+            // Roque grande (Queenside Castling):
+            if (piece is King && destination.Column == origin.Column - 2) {
+                Position rookOrigin = new Position(origin.Row, origin.Column - 4);
+                Position rookDestination = new Position(origin.Row, origin.Column - 1);
+                Piece rook = MatchBoard.RemovePiece(rookOrigin);
+                rook.NumberOfMovementsIncrementer();
+                MatchBoard.PlacePiece(rook, rookDestination);
+            }
+
             return capturedPiece;
         }
 
@@ -43,6 +62,24 @@ namespace Chess {
                 CapturedPieces.Remove(capturedPiece);
             }
             MatchBoard.PlacePiece(piece, origin);
+
+            // Roque pequeno (Kingside Castling):
+            if (piece is King && destination.Column == origin.Column + 2) {
+                Position rookOrigin = new Position(origin.Row, origin.Column + 3);
+                Position rookDestination = new Position(origin.Row, origin.Column + 1);
+                Piece rook = MatchBoard.RemovePiece(rookDestination);
+                rook.NumberOfMovementsIncrementer();
+                MatchBoard.PlacePiece(rook, rookOrigin);
+            }
+
+            // Roque grande (Queenside Castling):
+            if (piece is King && destination.Column == origin.Column - 2) {
+                Position rookOrigin = new Position(origin.Row, origin.Column - 4);
+                Position rookDestination = new Position(origin.Row, origin.Column - 1);
+                Piece rook = MatchBoard.RemovePiece(rookDestination);
+                rook.NumberOfMovementsIncrementer();
+                MatchBoard.PlacePiece(rook, rookOrigin);
+            }
         }
 
         public void DoPlay(Position origin, Position destination) {
@@ -177,14 +214,14 @@ namespace Chess {
 
         private void PlacePieces() {
             
-            PlaceNewPiece('A', 1, new Tower(PieceColor.White, MatchBoard));
-            PlaceNewPiece('B', 1, new Horse(PieceColor.White, MatchBoard));
+            PlaceNewPiece('A', 1, new Rook(PieceColor.White, MatchBoard));
+            PlaceNewPiece('B', 1, new Knight(PieceColor.White, MatchBoard));
             PlaceNewPiece('C', 1, new Bishop(PieceColor.White, MatchBoard));
             PlaceNewPiece('D', 1, new Queen(PieceColor.White, MatchBoard));
-            PlaceNewPiece('E', 1, new King(PieceColor.White, MatchBoard));
+            PlaceNewPiece('E', 1, new King(PieceColor.White, MatchBoard, this));
             PlaceNewPiece('F', 1, new Bishop(PieceColor.White, MatchBoard));
-            PlaceNewPiece('G', 1, new Horse(PieceColor.White, MatchBoard));
-            PlaceNewPiece('H', 1, new Tower(PieceColor.White, MatchBoard));
+            PlaceNewPiece('G', 1, new Knight(PieceColor.White, MatchBoard));
+            PlaceNewPiece('H', 1, new Rook(PieceColor.White, MatchBoard));
             PlaceNewPiece('A', 2, new Pawn(PieceColor.White, MatchBoard));
             PlaceNewPiece('B', 2, new Pawn(PieceColor.White, MatchBoard));
             PlaceNewPiece('C', 2, new Pawn(PieceColor.White, MatchBoard));
@@ -194,14 +231,14 @@ namespace Chess {
             PlaceNewPiece('G', 2, new Pawn(PieceColor.White, MatchBoard));
             PlaceNewPiece('H', 2, new Pawn(PieceColor.White, MatchBoard));
 
-            PlaceNewPiece('A', 8, new Tower(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('B', 8, new Horse(PieceColor.Black, MatchBoard));
+            PlaceNewPiece('A', 8, new Rook(PieceColor.Black, MatchBoard));
+            PlaceNewPiece('B', 8, new Knight(PieceColor.Black, MatchBoard));
             PlaceNewPiece('C', 8, new Bishop(PieceColor.Black, MatchBoard));
             PlaceNewPiece('D', 8, new Queen(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('E', 8, new King(PieceColor.Black, MatchBoard));
+            PlaceNewPiece('E', 8, new King(PieceColor.Black, MatchBoard, this));
             PlaceNewPiece('F', 8, new Bishop(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('G', 8, new Horse(PieceColor.Black, MatchBoard));
-            PlaceNewPiece('H', 8, new Tower(PieceColor.Black, MatchBoard));
+            PlaceNewPiece('G', 8, new Knight(PieceColor.Black, MatchBoard));
+            PlaceNewPiece('H', 8, new Rook(PieceColor.Black, MatchBoard));
             PlaceNewPiece('A', 7, new Pawn(PieceColor.Black, MatchBoard));
             PlaceNewPiece('B', 7, new Pawn(PieceColor.Black, MatchBoard));
             PlaceNewPiece('C', 7, new Pawn(PieceColor.Black, MatchBoard));
